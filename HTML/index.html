@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style_modal.css">
+    <!--<script src="¥b//code.jquery.com/jquery-1.10.2.min.js"></script>-->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//code.jquery.com/mobile/1.4.0-rc.1/jquery.mobile-1.4.0-rc.1.min.js"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+
+<body>
+    <!-- 音声ファイルの読み込み -->
+    <audio id="sound-file" preload="auto">
+      <source src="sound/meka_ge_keihou05.mp3" type="audio/mp3">
+    </audio>
+
+    <div data-role="page" class="ui-responsive-panel">
+      <div data-role="panel" id="panel" data-position="left" data-theme="a" data-display="push">
+        <div id="panel_inner_wrap" class="panel_inner_style">
+
+          <div id="intro_step0">
+              <div data-role="header">
+                  <h1 data-localize="title.keyword">マイページ</h1>
+              </div>
+              <div data-role="content" class="my-page">
+                  <button id="mypage" value="マイページ" type="button" class="btn btn-primaly" data-toggle="modal" data-target="#mypage-modal" data-localize="searchbutton">マイページを開く<span id="icon_badge" class="badge badge-red"　style="display:block;">1</span></button>
+             </div>
+          </div>
+
+          <div id="intro_step1">
+            <div data-role="header">
+              <h1 data-localize="title.facility">絞り込み</h1>
+            </div>
+            <div data-role="fieldcontain">
+              <form id="checklisttable">
+                <fieldset data-role="controlgroup">
+                  <input type="checkbox" data-theme="c" id="cb_gyosen" name="r1" onclick="Gclick()" 　>
+                  <label for="cb_gyosen" data-localize="category.att">
+                    <img src="img/gyosen.png" width="20" height="20">
+                    <i> 漁船</i> </label>
+
+                  <input type="checkbox" data-theme="c" id="cb_ryokyaku" name="r1" onclick="RYOclick()">
+                  <label for="cb_ryokyaku" data-localize="category.restaurant">
+                    <img src="img/ryokyakusen.png" width="20" height="20">
+                    <i> 旅客船</i></label>
+
+                  <input type="checkbox" data-theme="c" id="cb_kamotu" name="r1" onclick="KAclick()">
+                  <label for="cb_kamotu" data-localize="category.convenience">
+                    <img src="img/kamotusen.png" width="20" height="20">
+                    <i> 貨物船</i></label>
+
+                  <input type="checkbox" data-theme="c" id="cb_kousoku" onclick="KOclick()">
+                  <label for="cb_kousoku" data-localize="category.toilet">
+                    <img src="img/kousokusen.png" width="20" height="20">
+                    <i> 高速船</i></label>
+
+                  <input type="checkbox" data-theme="c" id="cb_tannka" onclick="TANclick()" class="area">
+                  <label for="cb_tannka" data-localize="category.parking">
+                    <img src="img/tannka.png" width="20" height="20">
+                    <i> タンカー船</i></label>
+
+                  <input type="checkbox" data-theme="c" id="cb_rezya" onclick="REclick()">
+                  <label for="cb_rezya" data-localize="category.ATM">
+                    <img src="img/rezyasenpng.png" width="20" eight="20">
+                    <i> レジャー船</i></label>
+
+                  <input type="checkbox" data-theme="c" id="cb_tag" onclick="TAGclick()">
+                  <label for="cb_tag" data-localize="category.tag">
+                    <img src="img/tagpilotsen.png" width="20" height="20">
+                    <i> タグ　パイロット船</i></label>
+
+                  <input type="checkbox" data-theme="c" id="cb_others" onclick="Yclick()">
+                  <label for="cb_others" data-localize="category.others">
+                    <img src="img/yet.png" width="20" height="20">
+                    <i> ヨット　その他</i></label>
+                </fieldset>
+              </form>
+            </div>
+
+                    <div data-role="header">
+                        <h1 data-localize="title.keyword">船舶検索</h1>
+                    </div>
+                    <div data-role="content">
+                        <form name="searchform2" id="searchform2" method="post" action="#">
+                            <input id="value1" type="text" name="keywords2" placeholder="船舶のidを入力してください" />
+                            <button id="button_search" type="button" class="btn btn-primary" data-localize="searchbutton">検索</button>
+                            <button id="return_map" type="button" class="btn btn-primary" data-localize="searchbutton" style="display:none">現在位置に移動する</button>
+                        </form>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div id="intro_step3">
+                    <div data-role="header">
+                        <h1 data-localize="title.keyword">ログイン</h1>
+                    </div>
+                    <div data-role="content">
+                        <p id="login_now" class="lti">ログインしていません</p>
+                        <br>
+                        <button id="login_start" value="ログイン" type="button" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" data-localize="searchbutton">ログイン</button>
+                        <button id="logout_start" value="ログアウト" type="button" class="btn btn-primary" data-localize="searchbutton">ログアウト</button>
+                    </div>
+                </div>
+
+                　<div id="intro_step4">
+                    <div data-role="header">
+                        <h1 data-localize="title.keyword">接近検知機能の切り替え</h1>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <form id="checklisttable">
+                            <fieldset data-role="controlgroup">
+                                <input type="checkbox" data-theme="c" id="cb_approach" name="r1" disabled='disabled' checked='checked'　>
+                                <label for="cb_approach" data-localize="category.att">
+                  <img src="img/gyosen.png" width="20" height="20">
+                  <i> 接近検知をオフにする</i> </label>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div id="intro_step5">
+                    <div data-role="header">
+                        <h1 data-localize="title.keyword">アカウント作成</h1>
+                    </div>
+                    <div data-role="content">
+                        <br>
+                        <button id="register_start" type="button" class="btn btn-primary" data-localize="searchbutton">アカウントを作成する</button>
+                        <button id="tutorial" value="チュートリアル" type="button" class="btn btn-primary"  onclick="location.href='https://toba-sanavi.azurewebsites.net/tutorial.html'" >チュートリアルを見る</button>
+                    </div>
+                </div>
+
+
+                <hr/>
+            </div>
+        </div>
+
+        <div data-role="content" role="main" id="wrap">
+            <div id="map_canvas" class="gmap"></div>
+            <button id="return_map_nowposition" type="button" class="btn btn-primary" data-localize="searchbutton" style="display: none;">現在位置へ戻る</button>
+        </div>
+
+        <div data-role="header" id="header_label" class="hidden-md heddin-lg">
+            <a data-iconpos="notext" href="#panel" data-role="button" data-icon="flat-menu"></a>
+            <h1 data-localize="title.pagetitle">SaNaVi</h1>
+        </div>
+    </div>
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="loginmodal-container">
+                <h1>ログイン</h1>
+                <br>
+                <form>
+                    <input type="text" name="loginid" id="loginid" placeholder="メールアドレスを入力してください">
+                    <input type="password" name="loginpass" id="loginpass" placeholder="パスワードを入力してください">
+                    <input type="button" id="login_comp" name="login" class="login loginmodal-button" value="ログインする">
+                </form>
+
+                <div class="login-help">
+                    <a href="//toba-sanavi.azurewebsites.net/Register.html">アカウントを登録する</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="mypage-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">更新情報のお知らせ</h4>
+                </div>
+                <div class="modal-body">
+                  <div id = "update_info">1週間以内に更新された機能はありません。</div>
+                  <br>
+                  <h4>ログイン船舶情報一覧</h4>
+                  <p id = "ship_id">船舶id:ログインしていません。</p>
+                  <p id = "ship_name">船舶名:ログインしていません。</p>
+                  <p id = "ship_type">船舶種類：ログインしていません。</p>
+                  <p id = "E_mail">Emailアドレス:ログインしていません。</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="modern-btn start btn-primary" data-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="approach" class="content" style="display:none">
+        <div id="footerFloatingMenu">
+            <a href="#">
+                <img src="img/keihou1_J.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="emergency" class="content" style="display:none">
+        <div id="footerFloatingMenu">
+            <a href="#">
+                <img src="img/keihou2_J.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="approach_emergency" class="content" style="display:none">
+        <div id="footerFloatingMenu">
+            <a href="#">
+                <img src="img/keihou3_J.png">
+            </a>
+        </div>
+    </div>
+
+    <div id="connect_error" class="content" style="display:none">
+        <div id="footerFloatingMenu">
+            <a href="#">
+                <img src="img/connect_error.png">
+            </a>
+        </div>
+    </div>
+
+    <div class="modal" id="div-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">SaNaViへようこそ！</h4>
+                </div>
+                <div class="modal-body">
+                    <p>『SaNaVi』はスマートフォンを用いて誰でも簡単に小型船の事故対策ができるシステムです！
+                        <br>利用するには「利用規約」に同意する必要があります。</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button id="buttonaudio" type="button" class="modern-btn start btn-primary" data-dismiss="modal">利用規約に同意する</button>
+                    <button data-toggle="modal" data-target="#myModal2" class="modern-btn start btn-primary">利用規約を確認する</button>
+                    <button id="buttontutorial" type="button" class="modern-btn start btn-primary" data-dismiss="modal" onclick="location.href='https://toba-sanavi.azurewebsites.net/tutorial.html'">SaNaViの使い方を見る</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal2" class="modal">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">規約･免責事項</h4>
+                </div>
+                <div class="modal-body">
+                  <p>『SaNaVi』のコンテンツサービスをご利用いただくには本規約に従っていただきます。
+                      <br> また、サービスを利用することによって、本規約の内容を承諾いただいたものとみなします。
+                      <br> 本規約の内容は必要に応じ予告なく改変することがあります。
+                      <br>
+                  </p>
+                  <p>第1条 内容の保証
+                      <br>内容の更新や変更、または天災・災害及びシステムの故障等で、止も得ない事由により掲載を一時的に中断する場合があります。
+                      <br> 本サービスはご利用の皆様に対して事前に通知をすることなく、サービスの追加、変更、更新を行います。
+                      <br> 同様に、サービスの運営上そのシステムの変更が必要であると判断した場合には、事前に通知をすることなく必要な変更を行うことがあります。
+                      <br>
+                  </p>
+                  <p>第2条　損害に対する責務
+                      <br>本サービスから得られた情報に基いて生じた損害・障害・不利益等に対する責任は一切負いません。
+                      <br>本サービスの利用者は自己責任で本サービス上の情報やサービスを利用・検討するものとします。
+                      <br> 『SaNaVi』はこれらの情報やサービス提供が原因で発生した損害すべてに対し、いかなる責任をも負わないものとし、一切の損害賠償義務は無いものとします。
+                  </p>
+                  <p>第3条　収集した情報の二次利用
+                      <br>本サービスで収集した情報について、本サービスの運営のために使用・公開されます。
+                      <br>本サービス上で公開される情報は船舶位置・船名などの船舶情報（個人名などの個人に関する登録情報を除く）を原則としますが、船舶の安全運航を目的として必要と判断した場合はこの限りではありません。
+                      <br>本サービス上で公開される情報と同等の情報を、他の船舶運航に関するサービス又は行政機関に提供することがあります。
+                  </p>
+                  <p>第4条　サービス利用における認識事項と航行について
+                      <br>本サービスは船舶の航行における参考情報の提供を目的としており、地図情報を直接の航海の用には使用できません。
+                      <br>スマートフォンのGPSから得た自船・他船の位置情報や地図情報には、実際の位置とのずれが存在することがあります。
+                      <br>スマートフォンが通信エリア外にある場合には、通信が正常にできなくなる場合があります。
+                      <br>船舶の航行においては、これらの内容を認識した上で、海上交通法規の遵守や航海計器の適切な使用などの関係法令の遵守を優先するものとします。
+                  </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="modern-btn start btn-primary" data-dismiss="modal">閉じる</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <audio id="audio3" src="sound/meka_ge_keihou05.mp3" preload="auto"></audio>
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false"></script>
+    <script src="js/infobox_packed.js"></script>
+    <script src="js/variable.js"></script>
+    <script src="js/option.js"></script>
+    <script src="js/checkbox.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/expression_googlemap.js"></script>
+    <script src="js/update.js"></script>
+    <script src="js/approach.js"></script>
+    <script src="js/getting_data_location.js"></script>
+    <script src="js/get_ship_name_id.js"></script>
+</body>
+
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile.flatui.min.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/img.min.css" />
+<link rel="stylesheet" href="css/introjs.min.css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+
+</html>

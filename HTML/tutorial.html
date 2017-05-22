@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>SaNaViチュートリアル</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style_web.css" />
+</head>
+
+<body>
+  <h1>SaNaViのチュートリアルページへようこそ！</h1>
+<ul>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>はじめに</h2>
+    <p>SaNaViを使用するには、アカウントの作成を行い、ログインをする必要があります。<br>利用規約に同意し、スライドメニューから「アカウント作成」ボタンをクリックしてアカウント作成ページに移行します。その後、アカウントの作成を行います。</p>
+    <p><img src="img/create_account.png" class="appIconBig"></p>
+  </li>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>アカウント作成方法</h2>
+    <p>自船の名前、Eメールアドレス、パスワード、ログイン時に使用するship_id(半角数字のみ入力可能)、船舶種別を選択後、「登録する」ボタンをクリックすることでアカウントの作成が完了します。<br>アカウントの作成が完了した後は、自動的にSaNaViページへ移行します。</p>
+    <p><img src="img/register_account.png" class="appIconBig"></p>
+  </li>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>ログイン方法</h2>
+    <p>スライドメニュー画面の「ログイン」ボタンをクリックします。</p>
+    <p><img src="img/login_bigin.png" class="appIconBig"></p>
+    <p>アカウント作成時に登録したメールアドレスとパスワードを入力することでログインが完了します。<br>ログイン完了後は、位置情報送信機能を使用することができます。</p>
+    <p><img src="img/login_modal.png" class="appIconBig"></p>
+  </li>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>位置情報表示・送信機能</h2>
+    <p>現在地から半径100km以内に存在する、SaNaViを使用している船舶の情報を表示します。アイコンをクリックすることで船舶の詳細な情報を閲覧することができます。情報の更新を9秒以上していない船舶はアイコンに☓印が付きます。<br>また、ログインを行うことで自船の緯度経度、スピード、方向、時刻をデータベースへ保存し続けます。</p>
+    <p><img src="img/ship_location.png" class="appIconBig"></p>
+  </li>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>船舶絞り込み機能</h2>
+    <p>スライドメニュー画面の「絞り込み」欄から船舶を選択することでMap上に表示する船舶を絞り込む事ができます。<br>絞り込まれた船舶は茶色のアイコンで表示されます。</p>
+    <p><img src="img/ship_type.png" class="appIconBig"></p>
+  </li>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>船舶検索機能</h2>
+    <p>スライドメニュー画面の「船舶検索」欄にship_idを入力することで、その船舶の現在地と現時刻から24時間前までの航跡を表示します。</p>
+    <p><img src="img/ship_search.png" class="appIconBig"></p>
+  </li>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>マイページ機能</h2>
+    <p>スライドメニュー画面の「マイページ」ボタンをクリックすることで、「SaNaVi」の更新情報を閲覧することができます。<br>また、ログインが完了している場合は自船の情報を閲覧することもできます。</p>
+    <p><img src="img/mypage_modal.png" class="appIconBig"></p>
+  </li>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>Mapの現在地追従をオフにする</h2>
+    <p>画面をスワイプすることで、Mapの現在地の追従をオフにします。これにより、他船の情報をスムーズに閲覧することが可能です。<br>追従を再開したい場合にはスワイプ後に画面左下に表示される「現在地に戻る」ボタンをクリックしてください。</p>
+    <p><img src="img/return_position.png" class="appIconBig"></p>
+  </li>
+  <li>
+    <input type="checkbox" checked>
+    <i></i>
+    <h2>アップデートについて</h2>
+    <p>「SaNaVi」がアップデートされた際には、「マイページ」ボタンに赤色のマークが表示されます。<br>マーク内の数字は、現在から1週間以内のアップデート数を表しています。</p>
+    <p><img src="img/mypage_update_button.png" class="appIconBig"></p>
+  </li>
+</ul>
+<button type="button" style="font-size:35px;　width:100%; height:80px" onclick="location.href='../index.html'" class="btn btn-info btn-lg btn-block">SaNaViページへ戻る</button>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+</html>

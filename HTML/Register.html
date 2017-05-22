@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link rel='stylesheet prefetch' href='//fonts.googleapis.com/css?family=Roboto:400,100,400italic,700italic,700'>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/form.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">新しいアカウントを作成する</h3>
+          </div>
+          <div class="panel-body">
+            <form accept-charset="UTF-8" role="form">
+              <fieldset>
+                <div class="form-group">
+                  <input class="form-control" placeholder="船舶名" type="text" id="register_name">
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Eメールアドレス" type="text" id="register_mail"></input>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="パスワード" type="password" id="register_pass"></input>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="もう一度パスワードを入力してください" type="password" id="register_pass_confirm"></input>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="ship_id作成 <6文字以内・半角数字>" type="text" id="register_id">
+                </div>
+                <div class="modern-input">
+                  <p>
+                    <select name="register_type" onchange="Selc(this)" 　id="register_type">
+                      <option value="漁船">漁船</option>
+                      <option value="旅客船">旅客船</option>
+                      <option value="貨物船">貨物船</option>
+                      <option value="高速船">高速船</option>
+                      <option value="タンカー船">タンカー船</option>
+                      <option value="レジャー船">レジャー船</option>
+                      <option value="タグ、パイロット船">タグ、パイロット船</option>
+                      <option value="ヨット、その他">ヨット、その他</option>
+                    </select>
+                  </p>
+                  <div class="bar"></div>
+
+
+                </div>
+                <input class="btn btn-lg btn-info btn-block" type="button" value="登録する" id="register_comp">
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var Rtype_value = "漁船"; //登録時に使用する　Register
+    var Rcheck;
+    var Rid;
+    var Rname;
+    var Rtype;
+    var Rmail;
+    var Rpass;
+    var Rid_check;
+    var Rname_check;
+    var Rmail_check;
+    var Rpass_check;
+    var Rpass_check_confirm;
+    var Rkeykode;
+
+    /*-----------------------------------------------
+     * 登録の処理
+     *-----------------------------------------------*/
+
+    $(function() {
+
+            $("#register_comp").click(function() {
+              var Rdata = {
+                ship_id: $("#register_id").val(),
+                ship_name: $("#register_name").val(),
+                ship_type: Rtype_value,
+                E_mail: $("#register_mail").val(),
+                password: $("#register_pass").val()
+              };
+
+              Rid_check = $("#register_id").val();
+              Rname_check = $("#register_name").val();
+              Rmail_check = $("#register_mail").val();
+              Rpass_check = $("#register_pass").val();
+              Rpass_check_confirm = $("#register_pass_confirm").val();
+
+              if (Rpass_check != Rpass_check_confirm) {
+                alert("パスワードが一致しません。");
+              } else if (Rid_check == "" || Rname_check == "" || Rmail_check == "" || Rpass_check == "") {
+                alert("未入力箇所が存在します。");
+              } else if (Rid_check.length > 6) {
+                alert("idの数字は6桁以内で入力して下さい。");
+              }else {
+
+                $.ajax({
+                  type: 'post', // HTTPメソッド
+                  url: '//toba-sanavi.azurewebsites.net/PHP/Register_ship_information_Azure.php',
+                  data: Rdata, // POSTするデータ
+                  cache: false,
+                  dataType: 'json',
+                  success: function(data) {
+                    Rcheck = data[0].Register;
+                    if (Rcheck == 0) {
+                      alert("登録が完了しました！");
+                      location.href = "//toba-sanavi.azurewebsites.net/index.html"
+                    } else {
+                      Rname = data[0].namecheck;
+                      Rid = data[0].idcheck;
+                      Rtype = data[0].typecheck;
+                      Rmail = data[0].mailcheck;
+                      Rpass = data[0].passcheck;
+                      alert("アカウント登録に失敗しました。\nIdが重複している恐れがあります。" + "\n船舶名登録：" + Rname + "\nEメールアドレス登録：" + Rmail +  "\nパスワード登録：" + Rpass + "\nShip_id登録：" + Rid + "\n船舶種類登録：" + Rtype);
+                    }
+                  }
+                });
+
+              }
+
+            });
+
+
+          });
+
+          /*-----------------------------------------------
+           * 登録情報の例外処理
+           *-----------------------------------------------*/
+
+          // $(function() {
+          //   $("#register_id").keydown(function(event) {
+          //     // 入力されたキーのコード
+          //     var keyCode = event.which;
+          //     // falseを返却してキー入力処理をキャンセル
+          //     if (keyCode >= 48　 && keyCode <= 57 || keyCode == 8) {
+          //       return true;
+          //     } else {
+          //       return false;
+          //     }
+          //
+          //     var code = 13;　　　　
+          //     $('#register_id').trigger(　　jQuery.Event('keydown', {
+          //       keyCode: code,
+          //       which: code
+          //     }));
+          //
+          //   });
+          // });
+
+          $(function() {
+            $("#register_name").keydown(function(event) {
+              // 入力されたキーのコード
+              var keyCode = event.keyCode;
+              // falseを返却してキー入力処理をキャンセル
+              if (keyCode == 32) {
+                return false;
+              }
+
+            });
+          });
+
+          /*-----------------------------------------------
+           * 登録情報の例外処理
+           *-----------------------------------------------*/
+
+          function Selc(Obj) {
+            Rtype_value = Obj.options[Obj.selectedIndex].value;
+          }
+  </script>
+
+</body>
+
+</html>
