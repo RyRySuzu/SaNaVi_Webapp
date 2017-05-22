@@ -41,9 +41,7 @@ setInterval(function() {
 
   setInterval(function() {
       if (Startflag == true) {
-        /*-----------------------------------------------
-         * DBから自分を中心とした100キロ圏内の船を引き出す
-         *-----------------------------------------------*/
+        //DBから周辺100kmの船舶情報を取得
         $.ajax({
             type: 'post', // HTTPメソッド
             url: '//toba-sanavi.azurewebsites.net/PHP/getting_data_latlon_Azure.php',
