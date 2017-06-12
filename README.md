@@ -4,4 +4,4 @@
 第三回学生スマートフォンアプリコンテスト　優勝  
 ImagineCup2016 日本予選大会　ワールドシチズンシップ部門　部門賞   
 
-![SaNaVi](https://github.com/RyRySuzu/images/blob/master/SaNaVi_top.png)
+![SaNaVi_images](https://github.com/RyRySuzu/images/blob/master/SaNaVi_top.png)
